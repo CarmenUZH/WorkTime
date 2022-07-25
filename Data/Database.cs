@@ -9,16 +9,18 @@ namespace Data
         private readonly SqlConnection _connection;
         SqlDataReader dataReader;
         private readonly List<Day> workdays = new List<Day>();
-        
+        private readonly string _datatable;
 
-        public Database()
+
+        public Database(string datatable)
         {
-            _connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Temporary;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+            _datatable = datatable;
+            _connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Worktime;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
 
         private SqlCommand ExecuteCommand(string sql)
         {
-           var cmd = new SqlCommand();
+            var cmd = new SqlCommand();
             cmd.CommandText = sql;
             cmd.CommandType = System.Data.CommandType.Text;
             cmd.Connection = _connection;
@@ -37,7 +39,7 @@ namespace Data
 
                 _connection.Open();
 
-                var cmd = ExecuteCommand("SELECT * FROM Worktime.dbo.Work");
+                var cmd = ExecuteCommand("SELECT * FROM " + _datatable); //Worktime.dbo.Work
                 dataReader = cmd.ExecuteReader();
                 while (dataReader.Read())
                 {
@@ -53,12 +55,12 @@ namespace Data
                     });
                 }
                 _connection.Close();
-              
+
             }
             catch (Exception ex)
             {
                 throw ex;
-               // Console.WriteLine("Oops, something went wrong while getting the data");
+                // Console.WriteLine("Oops, something went wrong while getting the data");
             }
 
             Console.WriteLine("complete");
@@ -67,25 +69,41 @@ namespace Data
 
         public void Add(Day day)
         {
-            Console.WriteLine("reached to heare");
             try
             {
                 _connection.Open();
-                var cmd = ExecuteCommand("INSERT INTO Worktime.dbo.Work VALUES('" + day.Date + "', '" + day.Workstart + "', '" + day.Workend + "', '" + day.Lunchstart + "', '" + day.Lunchend + "', '" + day.Worktime + "', '" + day.Lunchworktime + "')");
+                var cmd = ExecuteCommand("INSERT INTO " + _datatable + " VALUES('" + day.Date + "', '" + day.Workstart + "', '" + day.Workend + "', '" + day.Lunchstart + "', '" + day.Lunchend + "', '" + day.Worktime + "', '" + day.Lunchworktime + "')");
                 cmd.ExecuteNonQuery();
                 _connection.Close();
             }
             catch (Exception ex)
             {
                 throw ex;
-                 //Console.WriteLine("Couldn't add day");
+                //Console.WriteLine("Couldn't add day");
             }
-           
+
         }
 
         public int Commit()
         {
             return 0;
+        }
+
+        public void delete_withCondition(string condition)
+        {
+
+            try
+            {
+                _connection.Open();
+                var cmd = ExecuteCommand("DELETE FROM " + _datatable + " WHERE " + condition);
+                cmd.ExecuteNonQuery();
+                _connection.Close();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                Console.WriteLine("Couldn't delete day");
+            }
         }
     }
 }
