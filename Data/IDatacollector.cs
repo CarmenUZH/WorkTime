@@ -7,5 +7,6 @@ namespace Data
         IEnumerable<Day> getData();
         void Add (Day day);
         int Commit();
+        void delete_withCondition(string condition);
     }
 }

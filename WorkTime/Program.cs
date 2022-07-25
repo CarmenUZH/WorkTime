@@ -4,7 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
-builder.Services.AddScoped<IDatacollector, Database>();
+builder.Services.AddScoped<IDatacollector>(options => new Database("Worktime.dbo.Work"));
 
 var app = builder.Build();
 
