@@ -1,0 +1,38 @@
+﻿@page
+@model WorkTime.Pages.AddModel
+@{
+}
+<h3>Input information for new Day</h3>
+<form method="post">
+    <div class="form-group">
+        <label asp-for="newday.Date"></label>
+        <input asp-for="newday.Date"/>
+    </div>
+        <div class="form-group">
+        <label asp-for="newday.Workstart"></label>
+        <input asp-for="newday.Workstart"/>
+    </div>
+        <div class="form-group">
+        <label asp-for="newday.Workend"></label>
+        <input asp-for="newday.Workend"/>
+    </div>
+        <div class="form-group">
+        <label asp-for="newday.Lunchstart"></label>
+        <input asp-for="newday.Lunchstart"/>
+    </div>
+        <div class="form-group">
+        <label asp-for="newday.Lunchend"></label>
+        <input asp-for="newday.Lunchend"/>
+    </div>
+        <div class="form-group">
+        <label asp-for="newday.Worktime"></label>
+        <input asp-for="newday.Worktime"/>
+    </div>
+        <div class="form-group">
+        <label asp-for="newday.Lunchworktime"></label>
+        <input asp-for="newday.Lunchworktime"/>
+    </div>
+
+     <button type="submit" class="btn btn-primary" style="accent-color:blue" >Save Changes</button>
+</form>
+<a asp-page="./iNDEX" class="bg-info">Return to Database instead</a>

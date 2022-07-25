@@ -1,0 +1,60 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+</div>
+
+<div class="table">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>
+                    DATE
+                </th>
+                <th>
+                    WORK START
+                </th>
+                <th>
+                    WORK END
+                </th>
+                <th>
+                    LUNCH START
+                </th>
+                <th>
+                    LUNCH END
+                </th>
+                <th>
+                    WORKTIME
+                </th>
+                <th>
+                    WORKTIME WITH LUNCH
+                </th>
+            </tr>
+
+        </thead>
+      
+        <tbody>
+                    @{
+                if (Model != null)
+                {
+                    foreach (var day in Model.Workdays)
+                    {
+                        <tr>
+                            <td>@day.Date</td>
+                             <td>@day.Workstart</td>
+                               <td>@day.Workend</td>
+                                 <td>@day.Lunchstart</td>
+                                   <td>@day.Lunchend</td>
+                                     <td>@day.Worktime</td>
+                                       <td>@day.Lunchworktime</td>
+                        </tr>
+                    }
+                }
+            }
+        </tbody>
+    </table>
+</div>
