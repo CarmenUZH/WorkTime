@@ -1,10 +1,5 @@
 ﻿using Models;
-using System;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Tests
 {
@@ -12,13 +7,13 @@ namespace Data.Tests
     {
         private readonly SqlConnection _connection;
         private readonly List<Day> mockdays = new List<Day>();
-        SqlDataReader dataReader;
-
+        public SqlDataReader dataReader { get; private set; }
 
         public MockDatacollector()
         {
             //For the future: Figure out how to get this to run from remote (Github Actions)
             _connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Temporary;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+
         }
 
         private SqlCommand ExecuteCommand(string sql)
@@ -40,10 +35,10 @@ namespace Data.Tests
                 cmd.ExecuteNonQuery();
                 _connection.Close();
             }
-            catch (Exception ex)
+            catch (NullReferenceException ex)
             {
-                throw ex;
-                Console.WriteLine("Couldn't add day");
+                throw new ArgumentOutOfRangeException("Couldnt Access Data ", ex);
+
             }
         }
 
@@ -82,13 +77,12 @@ namespace Data.Tests
                 _connection.Close();
 
             }
-            catch (Exception ex)
+            catch (NullReferenceException ex)
             {
-                throw ex;
-                Console.WriteLine("Oops, something went wrong while getting the data");
+                throw new ArgumentOutOfRangeException("Couldnt Access Data ", ex);
+
             }
 
-  
             return mockdays;
         }
 
@@ -102,10 +96,10 @@ namespace Data.Tests
                 cmd.ExecuteNonQuery();
                 _connection.Close();
             }
-            catch (Exception ex)
+            catch (NullReferenceException ex)
             {
-                throw ex;
-                Console.WriteLine("Couldn't delete day");
+                throw new ArgumentOutOfRangeException("Couldnt Access Data ", ex);
+
             }
         }
     }
