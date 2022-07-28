@@ -57,10 +57,10 @@ namespace Data
                 _connection.Close();
 
             }
-            catch (Exception ex)
+            catch (NullReferenceException ex)
             {
-                throw ex;
-                // Console.WriteLine("Oops, something went wrong while getting the data");
+                throw new ArgumentOutOfRangeException("Couldnt Access Data ", ex);
+
             }
 
             Console.WriteLine("complete");
@@ -76,10 +76,14 @@ namespace Data
                 cmd.ExecuteNonQuery();
                 _connection.Close();
             }
-            catch (Exception ex)
+            catch (ArgumentOutOfRangeException ex)
             {
-                throw ex;
-                //Console.WriteLine("Couldn't add day");
+                throw new ArgumentOutOfRangeException("Couldnt Add ", ex);
+
+            }
+            catch (ArgumentNullException ex)
+            {
+                throw new ArgumentNullException("Detected null value", ex);
             }
 
         }
@@ -99,10 +103,10 @@ namespace Data
                 cmd.ExecuteNonQuery();
                 _connection.Close();
             }
-            catch (Exception ex)
+            catch (ArgumentOutOfRangeException ex)
             {
-                throw ex;
-                Console.WriteLine("Couldn't delete day");
+                throw new ArgumentOutOfRangeException("Couldnt Delete ", ex);
+
             }
         }
     }
