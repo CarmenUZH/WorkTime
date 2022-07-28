@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IDatacollector>(options => new Database("Worktime.dbo.Work")); // I am stoppable - I simply can be stopped
-builder.Services.AddScoped<ISQLQuery, SQLQuery>();
+builder.Services.AddSingleton<ISQLQuery, SQLQuery>();
 
 var app = builder.Build();
 
@@ -25,6 +25,8 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-//test
+//trying to get sql to run
+var thesql = app.Services.GetRequiredService<ISQLQuery>(); //Yoooooo! I am no longer stoppable! I simply cannot be stopped!
+thesql.CreatePostGres();
 
 app.Run();

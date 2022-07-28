@@ -7,15 +7,15 @@ namespace WorkTime.Pages
     public class IndexModel : PageModel
     {
         //private readonly csvreader thereader;
-        private readonly SQLQuery sqlquery;
+        private readonly ISQLQuery sqlquery;
         private readonly ILogger<IndexModel> _logger;
         private readonly IDatacollector _datacollector;
         public IEnumerable<Day> Workdays;
 
-        public IndexModel(ILogger<IndexModel> logger, IDatacollector datacollector)
+        public IndexModel(ILogger<IndexModel> logger, IDatacollector datacollector, ISQLQuery sQLQuery)
         {
             //thereader = new csvreader();
-            sqlquery = new SQLQuery();
+            sqlquery = sQLQuery;
             _logger = logger;
             _datacollector = datacollector;
             Workdays = _datacollector.getData();
@@ -26,7 +26,7 @@ namespace WorkTime.Pages
         public void OnGet()
         {
             _datacollector.Commit();
-            sqlquery.CreatePostGres(); 
+           // sqlquery.CreatePostGres(); 
             //thereader.readcsv();
         }
     }
