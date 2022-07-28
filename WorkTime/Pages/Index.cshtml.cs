@@ -18,14 +18,15 @@ namespace WorkTime.Pages
             sqlquery = new SQLQuery();
             _logger = logger;
             _datacollector = datacollector;
+            Workdays = _datacollector.getData();
+
 
         }
 
         public void OnGet()
         {
-            Workdays = _datacollector.getData();
             _datacollector.Commit();
-            sqlquery.CreatePostGresAsync(); //Does not work yet
+            sqlquery.CreatePostGres(); 
             //thereader.readcsv();
         }
     }
