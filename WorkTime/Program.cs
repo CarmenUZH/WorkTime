@@ -25,7 +25,7 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-//trying to get sql to run
+//Testtest
 var thesql = app.Services.GetRequiredService<ISQLQuery>(); //Yoooooo! I am no longer stoppable! I simply cannot be stopped!
 thesql.CreatePostGres();
 
