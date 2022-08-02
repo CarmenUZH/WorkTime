@@ -12,7 +12,7 @@ namespace Data.Tests
         public MockDatacollector()
         {
             //For the future: Figure out how to get this to run from remote (Github Actions)
-            _connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Database=Temporary;User Id=tester;Password=tester;Connection Timeout=50");
+            _connection = new SqlConnection(@"Data Source=(localdb)\MSSQLLocalDB;Database=Temporary;User Id=tester;Password=tester;Timeout=500");
 
         }
 
