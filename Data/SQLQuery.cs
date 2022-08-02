@@ -29,7 +29,7 @@ namespace Data
 
         public void CreatePostGres()
         {
-            var connString = "Host=10.20.101.211;Username=ocsuser;Password=rx5bRIg$XqzrNlp3kzlRt;Database=postgres"; //Even though we are creating a new database you have to specify that its a postgres database
+            var connString = "Host=10.20.101.211;Username=ocsuser;Password=rx5bRIg$XqzrNlp3kzlRt;Database=OpaccExport"; //Even though we are creating a new database you have to specify that its a postgres database
 
             var conn = new NpgsqlConnection(connString);
             conn.Open();
